@@ -1,11 +1,11 @@
 #equation{
     -fx-min-width: 340;
     -fx-min-height: 60;
-    -fx-alignment: right;
+    -fx-alignment: center-right;
     -fx-font-size: 20;
-    
-    -fx-background-color: gray;
     -fx-border-style: hidden hidden solid hidden;
+    -fx-set-editable: false;
+    -fx-background-color: gray;
     -fx-border-color: #333538;
     -fx-border-width: 3;
 }
@@ -14,7 +14,7 @@
     -fx-background-color: #2c2d2e;
 }
 
-#button, #button3, #button2, #button1{
+#button, #button3, #button2, #button1, #button6{
     -fx-pref-width: 85;
     -fx-pref-height: 85;
     -fx-background-radius: 15px;

@@ -17,6 +17,9 @@ public class view {
     int W = 350;
 
     public void start(Stage window){
+        /*Swing.utilities.invokeLater(()-> {
+            
+        });*/
         //this is where the GUI happens
         //where everything that is cool on the GUI is initialised
         
@@ -50,46 +53,67 @@ public class view {
         equation.setId("equation");
         equation.setAlignment(Pos.CENTER_RIGHT);
         hbox.getChildren().add(equation); //adds equation(TextField) to hbox
+        equation.setEditable(false);
         
-        //buttons
+        //buttons (num pad)
         for (int i = 7; i <=9; i++){
             Button button = new Button(String.valueOf(i));
             button.setId("button");
-            //button.setOnAction( this::buttonClicked );
+            button.setOnAction(this::handle);
             buttons1.getChildren().add(button);
         }
-        Button button1 = new Button("x");
-        button1.setId("button1");
-        buttons1.getChildren().add(button1);
+
         for (int i = 4; i <=6; i++){
             Button button = new Button(String.valueOf(i));
             button.setId("button");
-            //button.setOnAction( this::buttonClicked );
+            button.setOnAction(this::handle);
             buttons2.getChildren().add(button);
         }
-        Button button2 = new Button("-");
-        button2.setId("button2");
-        buttons2.getChildren().add(button2);
+
         for (int i = 1; i <=3; i++){
             Button button = new Button(String.valueOf(i));
             button.setId("button");
-            //button.setOnAction( this::buttonClicked );
+            button.setOnAction(this::handle);
             buttons3.getChildren().add(button);
         }
-        Button button3 = new Button("+");
-        button3.setId("button3");
-        buttons3.getChildren().add(button3);
+
         String [] button4 =
-            {"0", ".", "BCK"};        
+            {"0", "."};        
         for (String label : button4){
             Button button = new Button(label);
             button.setId("button");
-            //button.setOnAction( this::buttonClicked );
+            button.setOnAction(this::handle);
             buttons4.getChildren().add(button);
         }
+
+        
+        
+        //buttons (functions)
+        Button button1 = new Button("x");
+        button1.setId("button1");
+        buttons1.getChildren().add(button1);
+        
+        Button button2 = new Button("-");
+        button2.setId("button2");
+        buttons2.getChildren().add(button2);
+        
+        Button button3 = new Button("+");
+        button3.setId("button3");
+        buttons3.getChildren().add(button3);
+        
+        Button button6 = new Button ("BCK");
+        button6.setId("button6");
+        buttons4.getChildren().add(button6);
+        button6.setOnAction(this::back);
+        
         Button button5 = new Button("=");
         button5.setId("button5");
         buttons4.getChildren().add(button5);
+        
+
+        
+        
+        
         
         Scene scene = new Scene(root, W , H);
         scene.getStylesheets().add("calculator.css");
@@ -97,12 +121,32 @@ public class view {
         window.setTitle("Calculator");
         window.show();
     }
-    /*public void buttonClicked(ActionEvent event){
-        //this will make something happen when one of the buttons on the number pad is clicked
+    
+    public void handle(ActionEvent event){
+        if (event.getSource() instanceof Button){
+            Button button = ((Button) event.getSource());
+            String number = button.getText();
+            String currentText = equation.getText();
+            String newText = currentText + number;
+            equation.setText(newText);
+        }
     }
+    
+    public void back (ActionEvent event){
+        if (event.getSource() instanceof Button){
+            Button button6 = ((Button) event.getSource());
+            String currentText = equation.getText();
+            
+            String newText = currentText.substring(0, currentText.length() - 1);
+            equation.setText(newText);
+        }
+    }
+    
+    
+    
 
 
-    public void Addition(ActionEvent add){
+    /*public void Addition(ActionEvent add){
 
     }
 
