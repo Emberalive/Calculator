@@ -1,19 +1,16 @@
+package com.emberalive.calculator;
+
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.text.*;
 import javafx.stage.Stage;
-import javafx.util.*;
 import javafx.scene.control.Button;
 import javafx.geometry.Pos;
-import java.util.Arrays;
 
-public class view {
+public class View {
     TextField equation;
     TextField display;
-    TilePane numPad;
-    Button button;
     int H = 440;
     int W = 350;
 
@@ -139,13 +136,13 @@ public class view {
     }
     
     public void number(ActionEvent event){
-        if (event.getSource() instanceof Button){
-            Button button = ((Button) event.getSource());
+        if (event.getSource() instanceof Button button){
             String number = button.getText();
             String currentText = equation.getText();
+            String newText;
             switch( number ){
                 case "1", "2", "3", "4", "5", "6", "7", "8", "9", "0":
-                    String newText = currentText + number;
+                    newText = currentText + number;
                     equation.setText(newText);
                     break;
                 case "BCK":
