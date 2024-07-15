@@ -85,14 +85,7 @@ public class View {
             button.setOnAction(this::number);
             buttons3.getChildren().add(button);
         }
-        String [] button4 =
-            {"0", "."};        
-        for (String label : button4){
-            Button button = new Button(label);
-            button.setId("button");
-            button.setOnAction(this::number);
-            buttons4.getChildren().add(button);
-        }
+
         //buttons (dark gray ones)
         Button button1 = new Button("x");
         button1.setId("button1");
@@ -108,16 +101,32 @@ public class View {
         button3.setId("button3");
         buttons3.getChildren().add(button3);
         button3.setOnAction(this::mathyStuff);
-        
-        Button button5 = new Button ("BCK");
+
+        String[]
+                button5 = {"BCK", "."};
+        for (String label : button5) {
+            Button button = new Button (label);
+            button.setId("button7");
+            buttons4.getChildren().add(button);
+            button.setOnAction(this::number);
+        }
+
+
+        /*Button button5 = new Button ("BCK");
         button5.setId("button6");
         buttons4.getChildren().add(button5);
-        button5.setOnAction(this::number);
+        button5.setOnAction(this::number);*/
         
         Button button6 = new Button("=");
         button6.setId("button5");
         buttons4.getChildren().add(button6);
         button6.setOnAction(this::equals);
+
+        Button button7 = new Button("÷");
+        button7.setId("button6");
+        button7.setOnAction(this::mathyStuff);
+        buttons4.getChildren().add(button7);
+
         //clear button
         Button clear = new Button("clear");
         clear.setId("clearButton");
@@ -134,7 +143,7 @@ public class View {
         window.setTitle("Calculator");
         window.show();
     }
-    
+
     public void number(ActionEvent event){
         if (event.getSource() instanceof Button button){
             String number = button.getText();
@@ -189,6 +198,8 @@ public class View {
             case "x":
                 multiplication(num1, num2);
                 break;
+            case "÷":
+                division(num1, num2);
         }
     }
             public void Addition(int a, int b){
@@ -206,4 +217,10 @@ public class View {
         String d = String.valueOf(c);
         equation.setText(d);
     }
+
+    public void division (int a, int b) {
+        int c = a / b;
+        String d = String.valueOf(c);
+        equation.setText(d);
+}
 }

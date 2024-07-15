@@ -14,14 +14,14 @@
     -fx-background-color: #2c2d2e;
 }
 
-#button, #button3, #button2, #button1, #button6{
+#button, #button3, #button2, #button1, #button6, #button7{
     -fx-pref-width: 85;
     -fx-pref-height: 85;
     -fx-background-radius: 15px;
     -fx-margin: 100px;
     
 }
-#button1, #button2, #button3, #button5{
+#button1, #button2, #button3, #button6, #button5{
     -fx-pref-width: 85;
     -fx-pref-height: 85;
     -fx-background-color: gray;
