@@ -105,7 +105,7 @@ public class View {
         button3.setOnAction(this::mathyStuff);
 
         String[]
-                button5 = {"BCK", "."};
+                button5 = {"BCK", "0"};
         for (String label : button5) {
             Button button = new Button (label);
             button.setId("button7");
@@ -184,7 +184,7 @@ public class View {
         //getting numbers for the equation, and converting from String to int
         String newElement = equation.getText();
         String [] numberString = display.getText().split("[^0-9]+");
-        //display.setText(number + newElement); //making the whole equation, appear in display textField
+        display.setText(number + newElement); //making the whole equation, appear in display textField
         String[] newArray = Arrays.copyOf(numberString, numberString.length +1);
         newArray[newArray.length-1] = newElement;
         int[] numbers = Arrays.stream(newArray).mapToInt(Integer::parseInt).toArray();
@@ -213,43 +213,29 @@ public class View {
         equation.setText(d);
     }
 
-
     public void Subtraction(int...numbers) {
         int subtract = numbers[0];
-        for (int number : numbers){
-            subtract -= number;
+        for (int i = 1; i < numbers.length; i++){
+            subtract -= numbers[i];
         }
         String result = String.valueOf(subtract);
         equation.setText(result);
-
-        /*int c = a - b;
-        String d = String.valueOf(c);
-        equation.setText(d);*/
     }
         public void multiplication(int...numbers) {
-        int product = numbers[0];
+        int product = 1;
         for (int number : numbers){
             product *= number;
         }
         String result = String.valueOf(product);
         equation.setText(result);
-
-        /*int c = a * b;
-        String d = String.valueOf(c);
-        equation.setText(d);*/
     }
 
     public void division (int...numbers) {
-        int quotient = numbers[0]; //the product of dividing multiple numbers together
-        for (int number : numbers) {
-            quotient /= number;
+        int quotient =  numbers[0]; //the product of dividing multiple numbers together
+        for (int i = 1; i < numbers.length; i++) {
+            quotient /= numbers[i];
         }
         String result = String.valueOf(quotient);
         equation.setText(result);
-
-
-        /*int c = a / b;
-        String d = String.valueOf(c);
-        equation.setText(d);*/
 }
 }
