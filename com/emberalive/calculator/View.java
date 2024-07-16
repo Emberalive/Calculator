@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.geometry.Pos;
 
+import java.util.Arrays;
+
 public class View {
     TextField equation;
     TextField display;
@@ -111,21 +113,15 @@ public class View {
             button.setOnAction(this::number);
         }
 
-
-        /*Button button5 = new Button ("BCK");
-        button5.setId("button6");
-        buttons4.getChildren().add(button5);
-        button5.setOnAction(this::number);*/
-        
-        Button button6 = new Button("=");
-        button6.setId("button5");
-        buttons4.getChildren().add(button6);
-        button6.setOnAction(this::equals);
-
         Button button7 = new Button("÷");
         button7.setId("button6");
         button7.setOnAction(this::mathyStuff);
         buttons4.getChildren().add(button7);
+
+        Button button6 = new Button("=");
+        button6.setId("button5");
+        buttons4.getChildren().add(button6);
+        button6.setOnAction(this::equals);
 
         //clear button
         Button clear = new Button("clear");
@@ -167,11 +163,14 @@ public class View {
     }
     
     public void mathyStuff (ActionEvent event){
+        String number2 = (display.getText());
         if (event.getSource() instanceof Button){
             Button button = ((Button) event.getSource());
+
             String number = button.getText();
             String number1 = equation.getText();
-            display.setText(number1 + number);
+
+            display.setText(number2 + number1 + number);
             
             equation.setText(""); 
         }
@@ -183,44 +182,74 @@ public class View {
         String equationType = number.substring(number.length() -1 );
         
         //getting numbers for the equation, and converting from String to int
-        int num1 = Integer.valueOf(number.substring(0, number.length() -1));
-        int num2 = Integer.valueOf(equation.getText());
-        
-        display.setText(number + num2);
-        
+        String newElement = equation.getText();
+        String [] numberString = display.getText().split("[^0-9]+");
+        //display.setText(number + newElement); //making the whole equation, appear in display textField
+        String[] newArray = Arrays.copyOf(numberString, numberString.length +1);
+        newArray[newArray.length-1] = newElement;
+        int[] numbers = Arrays.stream(newArray).mapToInt(Integer::parseInt).toArray();
+
+        //states which method to run for which button.
         switch( equationType ){
             case "+":
-                Addition(num1, num2);
+                Addition(numbers);
                 break;
             case "-":
-                Subtraction(num1, num2);
+                Subtraction(numbers);
                 break;
             case "x":
-                multiplication(num1, num2);
+                multiplication(numbers);
                 break;
             case "÷":
-                division(num1, num2);
+                division(numbers);
         }
     }
-            public void Addition(int a, int b){
-        int c = a + b;
-        String d = String.valueOf(c);
-        equation.setText(d);
-    }
-    public void Subtraction(int a, int b) {
-        int c = a - b;
-        String d = String.valueOf(c);
-        equation.setText(d);
-    }
-        public void multiplication(int a, int b) {
-        int c = a * b;
+    public void Addition(int...numbers) {
+        int c = 0;
+        for (int number : numbers) {
+            c += number;
+        }
         String d = String.valueOf(c);
         equation.setText(d);
     }
 
-    public void division (int a, int b) {
-        int c = a / b;
+
+    public void Subtraction(int...numbers) {
+        int subtract = numbers[0];
+        for (int number : numbers){
+            subtract -= number;
+        }
+        String result = String.valueOf(subtract);
+        equation.setText(result);
+
+        /*int c = a - b;
         String d = String.valueOf(c);
-        equation.setText(d);
+        equation.setText(d);*/
+    }
+        public void multiplication(int...numbers) {
+        int product = numbers[0];
+        for (int number : numbers){
+            product *= number;
+        }
+        String result = String.valueOf(product);
+        equation.setText(result);
+
+        /*int c = a * b;
+        String d = String.valueOf(c);
+        equation.setText(d);*/
+    }
+
+    public void division (int...numbers) {
+        int quotient = numbers[0]; //the product of dividing multiple numbers together
+        for (int number : numbers) {
+            quotient /= number;
+        }
+        String result = String.valueOf(quotient);
+        equation.setText(result);
+
+
+        /*int c = a / b;
+        String d = String.valueOf(c);
+        equation.setText(d);*/
 }
 }
