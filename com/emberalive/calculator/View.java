@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.geometry.Pos;
@@ -17,31 +18,25 @@ public class View {
     int W = 350;
 
     public void start(Stage window){
-        /*Swing.utilities.invokeLater(()-> {
-            
-        });*/
         //this is where the GUI happens
         //where everything that is cool on the GUI is initialised
-        
-        VBox root = new VBox(); //learn what these do
+        VBox root = new VBox();
         HBox display1 = new HBox();
         HBox hbox = new HBox();
         HBox buttons1 = new HBox();
         HBox buttons2 = new HBox();
         HBox buttons3 = new HBox();
         HBox buttons4 = new HBox();
+        HBox buttons5 = new HBox();
         
         //display1
         display1.setAlignment(Pos.CENTER_RIGHT);
         root.getChildren().add(display1);
-        
-        //Hbox
-        hbox.setAlignment(Pos.CENTER); //center the HBox
-        root.getChildren().add(hbox); //adds HBox to VBox
-        
 
-        
-        //button layout
+        //HBox alignment
+        root.getChildren().add(hbox); //adds HBox to VBox
+        hbox.setAlignment(Pos.CENTER);//center the HBox
+
         root.getChildren().add(buttons1);
         buttons1.setAlignment(Pos.CENTER);
         root.getChildren().add(buttons2);
@@ -50,6 +45,8 @@ public class View {
         buttons3.setAlignment(Pos.CENTER);
         root.getChildren().add(buttons4);
         buttons4.setAlignment(Pos.CENTER);
+        root.getChildren().add(buttons5);
+        buttons5.setAlignment(Pos.CENTER);
         
         //root
         root.setId("root");
@@ -67,62 +64,81 @@ public class View {
         equation.setAlignment(Pos.CENTER_RIGHT);
         hbox.getChildren().add(equation); //adds equation(TextField) to hbox
         equation.setEditable(false);
-        
-        //buttons (num pad)
-        for (int i = 7; i <=9; i++){
-            Button button = new Button(String.valueOf(i));
-            button.setId("button");
-            button.setOnAction(this::number);
+
+        //button row 1
+        String[] button1 =
+                {"(", ")", ".", "BCK"};
+        for (String label : button1){
+            Button button = new Button(label);
+            button.setId("gray");
             buttons1.getChildren().add(button);
-        }
-        for (int i = 4; i <=6; i++){
-            Button button = new Button(String.valueOf(i));
-            button.setId("button");
             button.setOnAction(this::number);
-            buttons2.getChildren().add(button);
         }
-        for (int i = 1; i <=3; i++){
-            Button button = new Button(String.valueOf(i));
-            button.setId("button");
-            button.setOnAction(this::number);
-            buttons3.getChildren().add(button);
+        //num pad buttons
+        for (int i = 9; i >=1; i--){
+            if (i > 6){
+                Button button = new Button(String.valueOf(i));
+                button.setId("white");
+                button.setOnAction(this::number);
+                buttons2.getChildren().add(button);
+            }else if (i > 3){
+                Button button = new Button(String.valueOf(i));
+                button.setId("white");
+                button.setOnAction(this::number);
+                buttons3.getChildren().add(button);
+            }else{
+                Button button = new Button(String.valueOf(i));
+                button.setId("white");
+                button.setOnAction(this::number);
+                buttons4.getChildren().add(button);
+            }
         }
-
-        //buttons (dark gray ones)
-        Button button1 = new Button("x");
-        button1.setId("button1");
-        buttons1.getChildren().add(button1);
-        button1.setOnAction(this::mathyStuff);
-        
-        Button button2 = new Button("-");
-        button2.setId("button2");
-        buttons2.getChildren().add(button2);
-        button2.setOnAction(this::mathyStuff);
-        
-        Button button3 = new Button("+");
-        button3.setId("button3");
-        buttons3.getChildren().add(button3);
-        button3.setOnAction(this::mathyStuff);
-
+        //button row 5
         String[]
-                button5 = {"BCK", "0"};
-        for (String label : button5) {
-            Button button = new Button (label);
-            button.setId("button7");
-            buttons4.getChildren().add(button);
-            button.setOnAction(this::number);
-        }
+                button = {".", "0"};
+            for (String label : button) {
+                if (label.length() >= 1) {
+                    Button button2 = new Button(label);
+                    button2.setId("white");
+                    buttons5.getChildren().add(button2);
+                    button2.setOnAction(this::number);
+                }
+            }
+        Button button3 = new Button("=");
+        button3.setId("white");
+        buttons5.getChildren().add(button3);
+        button3.setOnAction(this::equals);
 
-        Button button7 = new Button("÷");
-        button7.setId("button6");
-        button7.setOnAction(this::mathyStuff);
-        buttons4.getChildren().add(button7);
-
-        Button button6 = new Button("=");
-        button6.setId("button5");
-        buttons4.getChildren().add(button6);
-        button6.setOnAction(this::equals);
-
+            //button column 4, starting at row 2
+            String[] fancy =
+                    {"x", "-", "+", "÷"};
+            for (String labels : fancy){
+                switch ( labels ){
+                    case "x":
+                        Button button4 = new Button (labels);
+                        button4.setId("gray");
+                        button4.setOnAction(this::mathyStuff);
+                        buttons2.getChildren().add(button4);
+                        break;
+                    case "-":
+                        Button button5 = new Button(labels);
+                        button5.setId("gray");
+                        button5.setOnAction(this::mathyStuff);
+                        buttons3.getChildren().add(button5);
+                        break;
+                    case "+":
+                        Button button6 = new Button (labels);
+                        button6.setId("gray");
+                        button6.setOnAction(this::mathyStuff);
+                        buttons4.getChildren().add(button6);
+                        break;
+                    case "÷":
+                        Button button7 = new Button (labels);
+                        button7.setId("gray");
+                        button7.setOnAction(this::mathyStuff);
+                        buttons5.getChildren().add(button7);
+                }
+            }
         //clear button
         Button clear = new Button("clear");
         clear.setId("clearButton");
@@ -130,9 +146,9 @@ public class View {
         clear.setOnAction(this::number);
         
         
-        
-        
-        
+
+
+
         Scene scene = new Scene(root, W , H);
         scene.getStylesheets().add("calculator.css");
         window.setScene(scene);

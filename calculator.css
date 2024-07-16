@@ -14,14 +14,14 @@
     -fx-background-color: #2c2d2e;
 }
 
-#button, #button3, #button2, #button1, #button6, #button7{
+#white{
     -fx-pref-width: 85;
     -fx-pref-height: 85;
     -fx-background-radius: 15px;
     -fx-margin: 100px;
     
 }
-#button1, #button2, #button3, #button6, #button5{
+#gray{
     -fx-pref-width: 85;
     -fx-pref-height: 85;
     -fx-background-color: gray;
@@ -32,4 +32,9 @@
 #clearButton{
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
+}
+#emptySpace{
+    -fx-pref-width: 85;
+    -fx-pref-height: 85;
+    -fx-opacity: 0;
 }
