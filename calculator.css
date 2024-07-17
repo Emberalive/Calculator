@@ -29,9 +29,9 @@
     -fx-border-color: black;
     -fx-border-radius: 15;
 }
-#clearButton{
+#placeHolder{
     -fx-focus-color: transparent;
-    -fx-faint-focus-color: transparent;
+    -fx-faint-focus-color:transparent;
 }
 #emptySpace{
     -fx-pref-width: 85;
