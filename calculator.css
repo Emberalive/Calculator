@@ -21,7 +21,7 @@
     -fx-margin: 100px;
     
 }
-#gray{
+#gray, #Test{
     -fx-pref-width: 85;
     -fx-pref-height: 85;
     -fx-background-color: gray;

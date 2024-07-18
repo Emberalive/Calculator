@@ -1,12 +1,13 @@
 package com.emberalive.calculator;
 
 import javafx.event.ActionEvent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.stage.Stage;
-import javafx.scene.control.Button;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.util.Arrays;
 
@@ -73,6 +74,7 @@ public class View {
             buttons1.getChildren().add(button);
             button.setOnAction(this::number);
         }
+
 
         //button row 2
         for (int i = 7; i <= 9; i++) {
@@ -160,10 +162,11 @@ public class View {
     public void number(ActionEvent event) {
         if (event.getSource() instanceof Button button) {
             String number = button.getText();
+            System.out.println("button pressed: " + number);
             String currentText = equation.getText();
             String newText;
             switch (number) {
-                case "1", "2", "3", "4", "5", "6", "7", "8", "9", "0":
+                case "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "(", ")", ".":
                     newText = currentText + number;
                     equation.setText(newText);
                     break;
@@ -172,6 +175,7 @@ public class View {
                     if (!a.isEmpty()){
                         newText = currentText.substring(0, currentText.length() - 1);
                         equation.setText(newText);
+                        System.out.println("  Character removed, current value: " + newText);
                     }else{
                         System.out.println("There is no character to remove");
                     }
@@ -191,6 +195,7 @@ public class View {
             if (event.getSource() instanceof Button button) {
                 //getting the values from the main textField and the button pressed
                 String number = button.getText();
+                System.out.println("button pressed: " + number);
                 String number1 = equation.getText();
                 //making sure there is a value already in the displayText if not, then else statement runs
                 if (number2.length() >= 2) {
@@ -207,16 +212,26 @@ public class View {
     }
 
     public void equals(ActionEvent event) {
+        System.out.println("button pressed: =");
         //figuring out which mathematical symbol is being used
         String number = display.getText();
         String a = equation.getText();
         if (!a.isEmpty()) {
             String equationType = number.substring(number.length() - 1);
-
             //getting numbers for the equation, and converting from String to int
             String newElement = equation.getText();
-            String[] numberString = display.getText().split("[^0-9]+");
             display.setText(number + newElement); //making the whole equation, appear in display textField
+            String[] numberString = display.getText().split("[^0-9]+");
+            System.out.println(Arrays.toString(numberString));
+
+            //This is a test thingy, works as intended, I am very happy :)
+            //it essentially gets all the symbols used for the equation, and in the correct order.
+            String [] mathSymbols = display.getText().split("[0-9]");
+            String [] moremafs = Arrays.copyOfRange(mathSymbols, 1, mathSymbols.length);//this removes the empty value at the front of the array
+            System.out.println("TESTYTHINGYMABOB" + Arrays.toString(moremafs));
+            //however I do not know what to do with it now :(
+
+            System.out.println("  equation answered : " + number + newElement);
             String[] newArray = Arrays.copyOf(numberString, numberString.length + 1);
             newArray[newArray.length - 1] = newElement;
             int[] numbers = Arrays.stream(newArray).mapToInt(Integer::parseInt).toArray();
@@ -238,17 +253,55 @@ public class View {
                     System.out.println("there is no equation to process");
             }
         }else{
-            System.out.print("there is not a full equation to process");
+            System.out.println("there is not a full equation to process");
         }
     }
 
-    public void Addition(int... numbers) {
-        int c = 0;
-        for (int number : numbers) {
-            c += number;
+    public void coolEquations (String[] a, String[] b){
+        int no3 = 0;
+        for (int i = 0; i <= a.length; i++){
+            int no1 = Integer.parseInt(a[i]);//get the first value of the bloody equation
+
+            for (int x = 0; x <= b.length; x++){
+                String maf = b[i];
+
+                for (int y = 1; y <= a.length; y++){
+                    int no2 = Integer.parseInt(a[i]);
+                    switch ( maf ){
+                        case "+":
+                            no3 = no1 + no2;
+                            break;
+                        case "-":
+                            no3 = no1 - no2;
+                            break;
+                        case "x":
+                            no3 = no1 * no2;
+                            break;
+                        case "÷":
+                            no3 = no1 / no2;
+                        default: System.out.println("Does not work, you silly");
+                        equation.setText(String.valueOf(no3));
+                    }
+                }
+            }
         }
-        String d = String.valueOf(c);
-        equation.setText(d);
+    }
+
+
+
+    public void Addition(int... numbers) {
+        String a = equation.getText();
+        if (!a.isEmpty()){
+            int c = 0;
+            for (int number : numbers) {
+                c += number;
+            }
+            String d = String.valueOf(c);
+            equation.setText(d);
+            System.out.println("    answer to equation: " + d);
+        }else{
+            System.out.println("There is no number to process");
+        }
     }
 
     public void Subtraction(int... numbers) {
@@ -260,6 +313,7 @@ public class View {
             }
             String result = String.valueOf(subtract);
             equation.setText(result);
+            System.out.println("    answer to equation: " + result);
         } else {
             System.out.println("There is no number to process");
         }
@@ -274,6 +328,7 @@ public class View {
             }
             String result = String.valueOf(product);
             equation.setText(result);
+            System.out.println("    answer to equation: " + result);
         } else {
             System.out.println("There is no number to process");
         }
@@ -288,6 +343,7 @@ public class View {
             }
             String result = String.valueOf(quotient);
             equation.setText(result);
+            System.out.println("    answer to equation: " + result);
         } else {
             System.out.println("There is no number to process");
         }
