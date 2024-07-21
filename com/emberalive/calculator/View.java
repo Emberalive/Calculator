@@ -227,15 +227,15 @@ public class View {
             //This is a test thingy, works as intended, I am very happy :)
             //it essentially gets all the symbols used for the equation, and in the correct order.
             String [] mathSymbols = display.getText().split("[0-9]");
-            //uncomment if new thing doesn't work       String [] moremafs = Arrays.copyOfRange(mathSymbols, 1, mathSymbols.length);//this removes the empty value at the front of the array
-            System.out.println("TESTYTHINGYMABOB" + Arrays.toString(mathSymbols/*replace with moremafs if doesnt work*/));
+            //add the code to remove first symbol of the array if new thing doesnt work
+            System.out.println("TESTYTHINGYMABOB" + Arrays.toString(mathSymbols/*replace with moremafs if new thing doesnt work*/));
             //however I do not know what to do with it now :(
 
             System.out.println("equation answered : " + number + newElement);
             String[] newArray = Arrays.copyOf(numberString, numberString.length + 1);
             newArray[newArray.length - 1] = newElement;
             int[] numbers = Arrays.stream(newArray).mapToInt(Integer::parseInt).toArray();
-            maf(numberString, mathSymbols/* set to moremafs if doesnt work*/);
+            maf(numberString, mathSymbols/* set to moremafs if new thing doesnt work*/);
             //states which method to run for which button
             /*switch (equationType) {
                 case "+":
