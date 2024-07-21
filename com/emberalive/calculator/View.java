@@ -227,15 +227,15 @@ public class View {
             //This is a test thingy, works as intended, I am very happy :)
             //it essentially gets all the symbols used for the equation, and in the correct order.
             String [] mathSymbols = display.getText().split("[0-9]");
-            String [] moremafs = Arrays.copyOfRange(mathSymbols, 1, mathSymbols.length);//this removes the empty value at the front of the array
-            System.out.println("TESTYTHINGYMABOB" + Arrays.toString(moremafs));
+            //uncomment if new thing doesn't work       String [] moremafs = Arrays.copyOfRange(mathSymbols, 1, mathSymbols.length);//this removes the empty value at the front of the array
+            System.out.println("TESTYTHINGYMABOB" + Arrays.toString(mathSymbols/*replace with moremafs if doesnt work*/));
             //however I do not know what to do with it now :(
 
             System.out.println("equation answered : " + number + newElement);
             String[] newArray = Arrays.copyOf(numberString, numberString.length + 1);
             newArray[newArray.length - 1] = newElement;
             int[] numbers = Arrays.stream(newArray).mapToInt(Integer::parseInt).toArray();
-            maf(numberString, moremafs);
+            maf(numberString, mathSymbols/* set to moremafs if doesnt work*/);
             //states which method to run for which button
             /*switch (equationType) {
                 case "+":
@@ -259,13 +259,17 @@ public class View {
 
 
 
-    public void maf (String[] a, String[] b){
+    public void maf (String[] a, String[] c){
         int no1 = 0;
         int no2 = 0;
         int no3 = 0;
         int no4 = 0;
         String maf = "";
         for (int i = 0; i < a.length; i++, i++){
+            //this is to remove th empty value in the array
+            String [] b = Arrays.copyOfRange(c, 1, c.length);
+
+            //This is the actual start of the method
                 no1 = Integer.parseInt(a[i]);
                 System.out.println("  This is the first number: " + no1);
 
