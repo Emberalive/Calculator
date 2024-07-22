@@ -28,7 +28,26 @@
     -fx-background-radius: 15px;
     -fx-border-color: black;
     -fx-border-radius: 15;
+    -fx-font-size: 20;
 }
+#equals {
+    -fx-font-size: 20;
+    -fx-pref-width: 85;
+    -fx-pref-height: 85;
+    -fx-background-radius: 15px;
+    -fx-margin: 100px;
+}
+
+#back{
+    -fx-pref-width: 85;
+    -fx-pref-height: 85;
+    -fx-background-color: gray;
+    -fx-background-radius: 15px;
+    -fx-border-color: black;
+    -fx-border-radius: 15;
+    -fx-font-size: 15;
+}
+
 #placeHolder{
     -fx-focus-color: transparent;
     -fx-faint-focus-color:transparent;

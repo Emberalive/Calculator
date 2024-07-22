@@ -8,7 +8,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import java.util.Arrays;
 
 public class View {
@@ -67,13 +66,19 @@ public class View {
 
         //button row
         String[] button1 =
-                {"(", ")", ".", "BCK"};
+                {"(", ")", "."};
         for (String label : button1) {
             Button button = new Button(label);
             button.setId("gray");
             buttons1.getChildren().add(button);
             button.setOnAction(this::number);
         }
+
+        //back button
+        Button backButton = new Button("BCK");
+        backButton.setId("back");
+        buttons1.getChildren().add(backButton);
+        backButton.setOnAction(this::number);
 
 
         //button row 2
@@ -112,7 +117,7 @@ public class View {
             }
         }
         Button button3 = new Button("=");
-        button3.setId("white");
+        button3.setId("equals");
         buttons5.getChildren().add(button3);
         button3.setOnAction(this::equals);
 
@@ -152,10 +157,12 @@ public class View {
         display1.getChildren().add(clear);
         clear.setOnAction(this::number);
         //starting the scene and that
+
         Scene scene = new Scene(root, W, H);
         scene.getStylesheets().add("calculator.css");
         window.setScene(scene);
         window.setTitle("Calculator");
+        window.setResizable(false);
         window.show();
     }
 
@@ -216,81 +223,53 @@ public class View {
         //figuring out which mathematical symbol is being used
         String number = display.getText();
         String a = equation.getText();
+        //getting numbers for the equation, and converting from String to int
         if (!a.isEmpty()) {
-            //This is not needed right now            //String equationType = number.substring(number.length() - 1);
-            //getting numbers for the equation, and converting from String to int
             String newElement = equation.getText();
             display.setText(number + newElement); //making the whole equation, appear in display textField
-            String[] numberString = display.getText().split("[^0-9]+");
+            String[] numberString = display.getText().split("[^0-9]+");//remove all the none no. characters and split the no. ones.
             System.out.println(Arrays.toString(numberString));
 
-            //This is a test thingy, works as intended, I am very happy :)
             //it essentially gets all the symbols used for the equation, and in the correct order.
             String [] mathSymbols = display.getText().split("[0-9]");
-            //add the code to remove first symbol of the array if new thing doesnt work
-            System.out.println("TESTYTHINGYMABOB" + Arrays.toString(mathSymbols/*replace with moremafs if new thing doesnt work*/));
-            //however I do not know what to do with it now :(
 
             System.out.println("equation answered : " + number + newElement);
             String[] newArray = Arrays.copyOf(numberString, numberString.length + 1);
             newArray[newArray.length - 1] = newElement;
             int[] numbers = Arrays.stream(newArray).mapToInt(Integer::parseInt).toArray();
-            maf(numberString, mathSymbols/* set to moremafs if new thing doesnt work*/);
-            //states which method to run for which button
-            /*switch (equationType) {
-                case "+":
-                    coolEquations(numberString, moremafs);
-                    break;
-                case "-":
-                    coolEquations(numberString, moremafs);
-                    break;
-                case "x":
-                    coolEquations(numbers);
-                    break;
-                case "÷":
-                    coolEquations(numbers);
-                default:
-                    System.out.println("there is no equation to process");
-            }
-        }else{
-            System.out.println("there is not a full equation to process");
-        */}
+            maf(numberString, mathSymbols);
+        }
     }
-
-
-
+    //processes the equation
     public void maf (String[] a, String[] c){
         int no1 = 0;
         int no2 = 0;
         int no3 = 0;
         int no4 = 0;
         String maf = "";
+        //loops through the odd numbers in the array
         for (int i = 0; i < a.length; i++, i++){
-            //this is to remove th empty value in the array
+            //this is to remove the empty value at the beginning of the array
             String [] b = Arrays.copyOfRange(c, 1, c.length);
-
-            //This is the actual start of the method
-                no1 = Integer.parseInt(a[i]);
-                System.out.println("  This is the first number: " + no1);
-
-                for (int x = 1; x < a.length; x++, x++){
+            System.out.println("mathysymbols " + Arrays.toString(b));
+            no1 = Integer.parseInt(a[i]);
+            //loops through the even numbers of the array
+            for (int x = 1; x < a.length; x++, x++){
                 no2 = Integer.parseInt(a[x]);
-                System.out.println("   This is the second number: " + no2);
-
                 for (String s : b) {
                     maf = s;
-                    System.out.println("    This is the math symbol used: " + maf);
-                    System.out.println("no3: " + no3);
+                    //based off of the symbol in the symbols array does a different equation
                     switch (maf) {
                         case "x":
                             if (no3 == 0){
                                 no3 = no1 * no2;
                                 equation.setText(String.valueOf(no3));
-                                break;
                             }else{
+                                //This is for the third number in an equation
                                 no4 = no3 * no1;
                                 equation.setText(String.valueOf(no4));
                             }
+                            break;
                         case "÷":
                             if (no3 == 0){
                                 no3 = no1 / no2;
@@ -327,145 +306,4 @@ public class View {
             }
         }
     }
-
-
-    /*
-    public void maf (String[] a, String[] b){
-        int no3 = 0;
-        int no1 = 0;
-        int no2 = 0;
-        int no4 = 0;
-        int no5 = 0;
-        for (int i = 0; i <= a.length; i++, i++){
-            if (i == 2){
-                no4 = Integer.parseInt(a[i]);
-                System.out.println("This is the third number: " + no4);
-            }else{
-                no1 = Integer.parseInt(a[i]);
-                System.out.println("This is the first number: " + no1);
-            }
-            for (int x = 1; x <= a.length; x++){
-                if (x <= 1){
-                    no2 = Integer.parseInt(a[x]);
-                    System.out.println("This is the second number: " + no2);
-                }else{
-                    System.out.println("this is the end of the road my friend");
-                }
-                for (String maf : b) {
-                    System.out.println("This is the maf thingy: " + maf);
-                    switch (maf) {
-                        case "+":
-                            if (i == 3) {
-                                equation.setText("");
-                                no5 = no3 + no4;
-                                equation.setText(String.valueOf(no5));
-                                System.out.println("This is the final answer: " + no5);
-                            } else {
-                                no3 = no1 + no2;
-                                System.out.println("This is the first half of the equation: " + no3);
-                            }
-                            break;
-                        case "-":
-                            if (i >= 2) {
-                                equation.setText("");
-                                no5 = no3 - no4;
-                                equation.setText(String.valueOf(no5));
-                                System.out.println("This is the final answer: " + no5);
-                            } else {
-                                no3 = no1 - no2;
-                                equation.setText(String.valueOf(no3));
-                                System.out.println("This is the first half of the equation: " + no3);
-                            }
-
-                            break;
-                        case "x":
-                            if (i >= 3) {
-                                equation.setText("");
-                                no5 = no3 * no4;
-                                equation.setText(String.valueOf(no5));
-                                System.out.println("This is the final answer: " + no5);
-                            } else {
-                                no3 = no1 * no2;
-                                equation.setText(String.valueOf(no3));
-                                System.out.println("This is the first half of the equation: " + no3);
-                            }
-                            break;
-                        case "÷":
-                            if (i >= 3) {
-                                equation.setText("");
-                                no5 = no3 / no4;
-                                equation.setText(String.valueOf(no5));
-                                System.out.println("This is the final answer: " + no5);
-                            } else {
-                                no3 = no1 / no2;
-                                equation.setText(String.valueOf(no3));
-                                System.out.println("This is the first half of the equation: " + no3);
-                            }
-                        default:
-                            System.out.println("Does not work, you silly");
-                    }
-                }
-            }
-        }
-    }*/
-
-    /*public void Addition(int... numbers) {
-        String a = equation.getText();
-        if (!a.isEmpty()){
-            int c = 0;
-            for (int number : numbers) {
-                c += number;
-            }
-            String d = String.valueOf(c);
-            equation.setText(d);
-            System.out.println("    answer to equation: " + d);
-        }else{
-            System.out.println("There is no number to process");
-        }
-    }
-
-    public void Subtraction(int... numbers) {
-        String a = equation.getText();
-        if (!a.isEmpty()) {
-            int subtract = numbers[0];
-            for (int i = 1; i < numbers.length; i++) {
-                subtract -= numbers[i];
-            }
-            String result = String.valueOf(subtract);
-            equation.setText(result);
-            System.out.println("    answer to equation: " + result);
-        } else {
-            System.out.println("There is no number to process");
-        }
-    }
-
-    public void multiplication(int... numbers) {
-        String a = equation.getText();
-        if (!a.isEmpty()) {
-            int product = 1;
-            for (int number : numbers) {
-                product *= number;
-            }
-            String result = String.valueOf(product);
-            equation.setText(result);
-            System.out.println("    answer to equation: " + result);
-        } else {
-            System.out.println("There is no number to process");
-        }
-    }
-
-    public void division(int... numbers) {
-        String a = equation.getText();
-        if (!a.isEmpty()) {
-            int quotient = numbers[0]; //the product of dividing multiple numbers together
-            for (int i = 1; i < numbers.length; i++) {
-                quotient /= numbers[i];
-            }
-            String result = String.valueOf(quotient);
-            equation.setText(result);
-            System.out.println("    answer to equation: " + result);
-        } else {
-            System.out.println("There is no number to process");
-        }
-    }*/
 }
