@@ -266,7 +266,6 @@ public class View {
                                 equation.setText(String.valueOf(no3));
                             }else{
                                 //This is for the third number in an equation
-                                //this will be used to loop through bigger equations, when I figure it out
                                 no4 = no3 * no1;
                                 equation.setText(String.valueOf(no4));
                             }
@@ -301,6 +300,8 @@ public class View {
                         default:
                             System.out.println("Does not work, you silly");
                     }
+                    System.out.println("      no3: " + no3);
+                    System.out.println("      no4: " + no4);
                 }
             }
         }
