@@ -8,10 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.Arrays;
 
 public class View {
     TextField equation;
@@ -198,7 +195,7 @@ public class View {
         }
     }
 
-    /*public void mathyStuff(ActionEvent event) {
+    public void mathyStuff(ActionEvent event) {
         String number2 = (display.getText());//getting the value from display, textField, in case there is a prior equation
         String a = equation.getText();
         if (!a.isEmpty()){
@@ -219,9 +216,9 @@ public class View {
         }else{
             System.out.println("there is no number to process");
         }
-    }*/
+    }
 
-    /*public void equals(ActionEvent event) {
+    public void equals(ActionEvent event) {
         System.out.println("button pressed: =");
         //figuring out which mathematical symbol is being used
         String number = display.getText();
@@ -240,63 +237,11 @@ public class View {
             String[] newArray = Arrays.copyOf(numberString, numberString.length + 1);
             newArray[newArray.length - 1] = newElement;
             int[] numbers = Arrays.stream(newArray).mapToInt(Integer::parseInt).toArray();
-            //mathStuff(numberString, mathSymbols);
-        }
-    }*/
-
-    public void mathyStuff (ActionEvent event){
-        if (event.getSource() instanceof Button button){
-            //gets the text from the button
-            String math = button.getText();
-            //gets the text that is already in the equation TextField
-            String number = equation.getText();
-            //sets the new full equation in the display#
-                String number1 = display.getText();
-                display.setText(number1 + number + math);
-                equation.setText("");
-                maths();
-            }
-    }
-
-    public void maths (){
-        int no3 = 0;
-        int number = display.getText().length() -1;
-        String number1 = display.getText();
-        String math = String.valueOf(number1.charAt(number1.length() -1));
-    }
-
-
-
-
-
-
-
-    public void calculating (int no1, int no2, String symbol){
-        int no3 = 0;
-        switch(symbol){
-            case "+":
-                no3 =no1 + no2;
-                equation.setText(String.valueOf(no3));
-                break;
-            case "-":
-                no3 = no1 - no2;
-                equation.setText(String.valueOf(no3));
-                break;
-            case "x":
-                no3 = no1 * no2;
-                equation.setText(String.valueOf(no3));
-                break;
-            case "÷":
-                no3 = no1 / no2;
-                equation.setText(String.valueOf(no3));
-                break;
-            default:
+            maf(numberString, mathSymbols);
         }
     }
-
-
     //processes the equation
-    /*public void maf (String[] a, String[] c){
+    public void maf (String[] a, String[] c){
         int no1 = 0;
         int no2 = 0;
         int no3 = 0;
@@ -359,5 +304,5 @@ public class View {
                 }
             }
         }
-    }*/
+    }
 }
